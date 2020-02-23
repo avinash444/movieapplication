@@ -46,7 +46,6 @@ class Search extends Component {
     this.props.getSearchTerm(inptVal, slctType)
   }
   searchCall = event => {
-    console.log(event.target.value);
     this.setState(
       {
         inptVal: event.target.value

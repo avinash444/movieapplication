@@ -7,10 +7,10 @@ const actions = {
 };
 
 const actionCreators = {
-  getMovieData: (params,type) => {
+  getMovieData: (params,type,pagenum) => {
     return {
       type: actions.FETCH_MOVIE_DATA,
-      payload: api.fetchMovieData(params,type)
+      payload: api.fetchMovieData(params,type,pagenum)
     };
   },
   setGetLocalStorageItems:(id) => {

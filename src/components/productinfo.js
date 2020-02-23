@@ -8,16 +8,21 @@ class ProductInfo extends Component {
 
         }
         this.selectFav = this.selectFav.bind(this)
+        this.loadSearchPage = this.loadSearchPage.bind(this)
     }
     selectFav() {
         const { item, selectFav } = this.props
         selectFav(item.imdbID)
     }
+    loadSearchPage() {
+        const { item, loadSearchPage } = this.props
+        loadSearchPage(item.imdbID)
+    }
     render() {
         const {Poster, Title, Year } = this.props.item
         const imgSrc = Poster === 'N/A' ? '' : Poster
         return (
-            <div className="product-detail-list">
+            <div className="product-detail-list" onClick={this.loadSearchPage}>
                 <div className="product-image">
                     <img src={imgSrc} alt={Title} />
                 </div>

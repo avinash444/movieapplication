@@ -84,7 +84,7 @@ body {
   flex-direction: column;
   background-color: #FFF;
 	box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.25);
-
+  cursor:pointer;
 }
 .product-image img {
   max-width: 100%;
@@ -113,4 +113,50 @@ input:focus {
 .fav-checkbox {
   margin-left: 10px;
   color:#fff;
+}
+
+.search-detail-block {
+  display: flex;
+}
+.fontw-300 {
+  font-weight: 300;
+}
+ul {
+  list-style-type: none;
+}
+.flex {
+  display: flex;
+}
+.numbers-page {
+  padding: 11px;
+  border: 1px solid #cdcdcd;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50px;
+  width: 17px;
+  height: 17px;
+  margin: 5px;
+  color: #2874f0;
+}
+.next-page, .prev-page {
+  padding: 14px;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #e20d0d;
+  font-size: 16px;
+}
+.justify-center{
+  justify-content: center;
+}
+.active-page {
+  padding: 11px;
+  border: 1px solid #cdcdcd;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50px;
+  width: 17px;
+  height: 17px;
+  margin: 5px;
+  background: #2874f0;
+  color: #fff;
 }

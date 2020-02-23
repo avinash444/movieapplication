@@ -28,7 +28,7 @@ class ProductDetails extends Component {
     return (
       <div className="product-detail-box">
         {
-          searchData.map((item, key) => <ProductInfo  selectFav={this.selectFav} key={`${key}-${item.imdbID}`} item={item} />)
+          searchData.map((item, key) => <ProductInfo  loadSearchPage={this.props.loadSearchPage} selectFav={this.selectFav} key={`${key}-${item.imdbID}`} item={item} />)
         }
       </div>
     ) 

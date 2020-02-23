@@ -3,6 +3,10 @@ import Search from "../components/search";
 import ProductDetails from "../components/productdetails";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import Pagination from '../components/pagination'
+import {
+  withRouter
+} from 'react-router-dom'
 import {
   actionCreators as movieActionCreator,
   selectors as movieSelector
@@ -13,14 +17,24 @@ class SearchPage extends Component {
     this.state = {
       searchTerm: "",
       searchData:[],
-      isFavChecked:false
+      isFavChecked:false,
+      genreType:'all',
+      pageNum:1,
+      searchVal:""
     };
     this.getSearchTerm = this.getSearchTerm.bind(this);
     this.isFavSelected = this.isFavSelected.bind(this);
     this.selectFav = this.selectFav.bind(this)
+    this.loadSearchPage = this.loadSearchPage.bind(this)
+    this.getPageData = this.getPageData.bind(this)
   }
   getSearchTerm(data,type) {
-    this.props.getMovieData(data,type);
+    const { pageNum } = this.state
+    this.setState({
+      genreType:type,
+      searchVal:data
+    }, () => this.props.getMovieData(data,type,pageNum))
+    
   }
   isFavSelected(checked) {
     const { movieData } = this.props
@@ -29,9 +43,27 @@ class SearchPage extends Component {
   selectFav(id) {
     this.props.setGetLocalStorageItems(id)
   }
+  loadSearchPage(id) {
+    const { genreType } = this.state;
+    const { history } = this.props
+    history.push(`/searchdetail/${genreType}/${id}`)
+    
+  }
+  getPageData(pageNum){
+    const { getMovieData } = this.props
+    const { searchVal, genreType } = this.state
+    getMovieData(searchVal,genreType,pageNum)
+  }
   static getDerivedStateFromProps(nextProps, prevState) {
     
     const { movieData, filteredData } = nextProps
+    //const { params } = nextProps.match
+    if(Number(movieData.pagenum) && movieData.pagenum !== prevState.pageNum) {
+      return {
+        searchData:movieData.data,
+        pageNum:movieData.pagenum
+      }
+    }
     if(movieData.data && (movieData.data.length !== prevState.searchData.length) && !movieData.isFilterApplied) {
         return {
           searchData:movieData.data,
@@ -64,7 +96,16 @@ class SearchPage extends Component {
           errorMsg={errorMsg}
           selectFav={this.selectFav}
           isFavChecked={isFavChecked}
+          loadSearchPage={this.loadSearchPage}
         />
+        {
+          movieData && movieData.totalResults > 1 ?
+          <Pagination 
+            totalResults={movieData.totalResults}
+            getPageData={this.getPageData}
+            currentPage={this.state.pageNum}
+          /> : null
+        }   
       </div>
     );
   }
@@ -88,7 +129,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(SearchPage);
+)(SearchPage));

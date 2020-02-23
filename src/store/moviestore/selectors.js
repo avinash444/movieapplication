@@ -1,9 +1,10 @@
 const getMovieData = store => {
   const { data,isFilterApplied } = store.movieReducer
-  console.log('data', data);
   
   if(data.Response === 'True') {
-    return {data:data.Search, isFilterApplied}
+    let { totalResults, } = data
+    //totalResults = Math.floor(totalResults/10) 
+    return { data:data.Search, isFilterApplied, totalResults, pagenum:data.pagenum}
   }
   if(data.Response === "False" && data.Error) {
     return {
@@ -18,7 +19,7 @@ const getMovieData = store => {
 };
  const getFilteredData = store => {
    const { filterData, isFilterApplied } = store.movieReducer
-   debugger
+
    if(filterData.length > 0) {
      return {
        data:filterData,

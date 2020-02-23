@@ -1,20 +1,24 @@
 import axios from "axios";
 import { MOVIE_URL, API_KEY } from "../../config";
-const fetchMovieData = (sterm,type) => {
+const fetchMovieData = (sterm,type,pagenum) => {
   let paramObj = {
     apikey:API_KEY,
-    s:sterm
+    s:sterm,
+    page:pagenum
   }
   if(type !== 'all') {
     paramObj['type'] = type
   }
+  //window.localStorage.setItem('pagenum', pagenum)
   return axios.get(MOVIE_URL, {
     params: paramObj
-  });
+  }).then((data) => {
+    data.data['pagenum'] = pagenum
+    return data
+  })
 };
 const setGetLocalStorageItems = (id) => {
   let getItems = window.localStorage.getItem('favItems')
-  debugger
   if(getItems == null || !getItems) {
     getItems = []
     getItems.push(id)
@@ -31,7 +35,6 @@ const setGetLocalStorageItems = (id) => {
   window.localStorage.setItem('favItems', getItems)
 }
 const toggleFavItems = (data,checked) => {
-  debugger
   let items = JSON.parse(window.localStorage.getItem('favItems'))
   let newData;
   let isFilterApplied
