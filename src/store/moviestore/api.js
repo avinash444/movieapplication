@@ -39,13 +39,11 @@ const toggleFavItems = (data,checked) => {
   let newData;
   let isFilterApplied
   if(checked && items) {
-    isFilterApplied = true;
     newData = data.data.filter((item) => items.indexOf(item.imdbID) !== -1)
   }else {
-    newData = data.data
-    isFilterApplied = false;
+    newData = []
   }
-
+  isFilterApplied = checked
   return {
     data:newData,
     isFilterApplied

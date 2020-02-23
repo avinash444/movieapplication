@@ -95,6 +95,8 @@ class Pagination extends Component {
             return {
                 currentPage:nextProps.currentPage
             }
+        } else {
+            return null
         }
     }
     render() {
@@ -104,19 +106,19 @@ class Pagination extends Component {
             <div>
                 <ul className="flex justify-center">
                     {
-                    pageNumbers.map((item) => {
+                    pageNumbers.map((item,index) => {
                         if(item === 'previous') {
                             return (
-                                <li className="prev-page" onClick={this.prevPageClick}>previous</li>
+                                <li key={`previous-${index}`} className="prev-page" onClick={this.prevPageClick}>previous</li>
                             )
                         }
                         if(item === 'next') {
                             return (
-                                <li className="next-page" onClick={this.nextPageClick}>next</li>
+                                <li key={`next-${index}`} className="next-page" onClick={this.nextPageClick}>next</li>
                             )
                         }
                         return (
-                            <li  className={item == currentPage ? 'active-page' : "numbers-page"} onClick={this.getPageData(item)}>{item}</li>
+                            <li  key={`index-${item}`} className={item == currentPage ? 'active-page' : "numbers-page"} onClick={this.getPageData(item)}>{item}</li>
                         )
                     
                     })
