@@ -11,7 +11,7 @@ import {
 export default function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename={`${process.env.PUBLIC_URL}/`}>
         <Switch>
           <Route path='/' exact={true}>
             <SearchPage />
