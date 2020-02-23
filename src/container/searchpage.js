@@ -99,7 +99,7 @@ class SearchPage extends Component {
           loadSearchPage={this.loadSearchPage}
         />
         {
-          movieData && movieData.totalResults > 1 ?
+          (movieData && movieData.totalResults > 1 && !movieData.isFilterApplied) ?
           <Pagination 
             totalResults={movieData.totalResults}
             getPageData={this.getPageData}

@@ -38,7 +38,7 @@ const toggleFavItems = (data,checked) => {
   let items = JSON.parse(window.localStorage.getItem('favItems'))
   let newData;
   let isFilterApplied
-  if(checked) {
+  if(checked && items) {
     isFilterApplied = true;
     newData = data.data.filter((item) => items.indexOf(item.imdbID) !== -1)
   }else {
